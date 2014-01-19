@@ -20,14 +20,14 @@
 
 /** The number of points along the X-axis of the graph.
  @return Number of points. */
-- (int)numberOfPointsInGraph;
+- (NSUInteger)numberOfPointsInGraph;
 
 
 
 /** The vertical position for a point at given index. It corresponds to the Y-axis value of the Graph.
  @param index   The index from left to right of a given point (X-axis). The first value for the index is 0.
  @return        The Y-axis value at a given index. */
-- (float)valueForIndex:(NSInteger)index;
+- (CGFloat)valueForIndex:(NSInteger)index;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -38,13 +38,13 @@
 
 /** Gets called when the user starts touching the graph. The property 'enableTouchReport' must be set to YES.
  @param index   The closest index (X-axis) from the location the user is currently touching. */
-- (void)didTouchGraphWithClosestIndex:(int)index;
+- (void)didTouchGraphWithClosestIndex:(NSUInteger)index;
 
 
 
 /**  Gets called when the user stops touching the graph.
  @param index   The closest index (X-axis) from the location the user last touched. */
-- (void)didReleaseGraphWithClosestIndex:(float)index;
+- (void)didReleaseGraphWithClosestIndex:(CGFloat)index;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -56,7 +56,7 @@
  @discussion For example returning '1' would mean that half of the labels on the X-axis are not displayed: the first is not displayed, the second is, the third is not etc. Returning '0' would mean that all of the labels will be displayed. Finally, returning a value equal to the number of labels will only display the first and last label.
  
  @return The number of labels to "jump" between each displayed label on the X-axis. */
-- (int)numberOfGapsBetweenLabels;
+- (NSUInteger)numberOfGapsBetweenLabels;
 
 
 
@@ -99,7 +99,7 @@
 
 
 /// Alpha of the bottom part of the graph (between the line and the X-axis).
-@property (nonatomic) float alphaBottom;
+@property (nonatomic) CGFloat alphaBottom;
 
 
 /// Color of the top part of the graph (between the line and the top of the view the graph is drawn in).
@@ -107,7 +107,7 @@
 
 
 /// Alpha of the top part of the graph (between the line and the top of the view the graph is drawn in).
-@property (nonatomic) float alphaTop;
+@property (nonatomic) CGFloat alphaTop;
 
 
 /// Color of the line of the graph.
@@ -115,11 +115,11 @@
 
 
 /// Alpha of the line of the graph.
-@property (nonatomic) float alphaLine;
+@property (nonatomic) CGFloat alphaLine;
 
 
 /// Width of the line of the graph. Default value is 1.0.
-@property (nonatomic) float widthLine;
+@property (nonatomic) CGFloat widthLine;
 
 
 /// Color of the label's text displayed on the X-Axis.

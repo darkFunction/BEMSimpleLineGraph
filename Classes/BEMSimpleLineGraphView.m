@@ -14,7 +14,7 @@
 
 @implementation BEMSimpleLineGraphView
 
-int numberOfPoints; // The number of Points in the Graph.
+NSUInteger numberOfPoints; // The number of Points in the Graph.
 BEMCircle *closestDot;
 int currentlyCloser;
 
@@ -46,14 +46,14 @@ int currentlyCloser;
     _enableTouchReport = NO;
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         [self commonInit];
     }
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     if ((self = [super initWithCoder:coder])) {
         [self commonInit];
     }
@@ -90,20 +90,20 @@ int currentlyCloser;
 - (void)drawGraph {
     // CREATION OF THE DOTS
     
-    float maxValue = [self maxValue]; // Biggest Y-axis value from all the points.
-    float minValue = [self minValue]; // Smallest Y-axis value from all the points.
+    CGFloat maxValue = [self maxValue]; // Biggest Y-axis value from all the points.
+    CGFloat minValue = [self minValue]; // Smallest Y-axis value from all the points.
     
-    float positionOnXAxis; // The position on the X-axis of the point currently being created.
-    float positionOnYAxis; // The position on the Y-axis of the point currently being created.
+    CGFloat positionOnXAxis; // The position on the X-axis of the point currently being created.
+    CGFloat positionOnYAxis; // The position on the Y-axis of the point currently being created.
     
     for (UIView *subview in [self subviews]) {
         if ([subview isKindOfClass:[BEMCircle class]])
             [subview removeFromSuperview];
     }
     
-    for (int i = 0; i < numberOfPoints; i++) {
+    for (NSUInteger i = 0; i < numberOfPoints; i++) {
         
-        float dotValue = [self.delegate valueForIndex:i];
+        CGFloat dotValue = [self.delegate valueForIndex:i];
         
         positionOnXAxis = (self.viewForBaselineLayout.frame.size.width/(numberOfPoints - 1))*i;
         positionOnYAxis = (self.viewForBaselineLayout.frame.size.height - 80) - ((dotValue - minValue) / ((maxValue - minValue) / (self.viewForBaselineLayout.frame.size.height - 80))) + 20;
@@ -120,17 +120,17 @@ int currentlyCloser;
     
     // CREATION OF THE LINE AND BOTTOM AND TOP FILL
     
-    float xDot1; // Postion on the X-axis of the first dot.
-    float yDot1; // Postion on the Y-axis of the first dot.
-    float xDot2; // Postion on the X-axis of the next dot.
-    float yDot2; // Postion on the Y-axis of the next dot.
+    CGFloat xDot1; // Postion on the X-axis of the first dot.
+    CGFloat yDot1; // Postion on the Y-axis of the first dot.
+    CGFloat xDot2; // Postion on the X-axis of the next dot.
+    CGFloat yDot2; // Postion on the Y-axis of the next dot.
     
     for (UIView *subview in [self subviews]) {
         if ([subview isKindOfClass:[BEMLine class]])
             [subview removeFromSuperview];
     }
     
-    for (int i = 0; i < numberOfPoints - 1; i++) {
+    for (NSUInteger i = 0; i < numberOfPoints - 1; i++) {
         
         for (UIView *dot in [self.viewForBaselineLayout subviews]) {
             if (dot.tag == i + 100)  {
@@ -212,11 +212,11 @@ int currentlyCloser;
 }
 
 // Determines the biggest Y-axis value from all the points.
-- (float)maxValue {
-    float dotValue;
-    float maxValue = 0;
+- (CGFloat)maxValue {
+    CGFloat dotValue;
+    CGFloat maxValue = 0;
     
-    for (int i = 0; i < numberOfPoints; i++) {
+    for (NSUInteger i = 0; i < numberOfPoints; i++) {
         dotValue = [self.delegate valueForIndex:i];
         
         if (dotValue > maxValue) {
@@ -228,11 +228,11 @@ int currentlyCloser;
 }
 
 // Determines the smallest Y-axis value from all the points.
-- (float)minValue {
-    float dotValue;
-    float minValue = INFINITY;
+- (CGFloat)minValue {
+    CGFloat dotValue;
+    CGFloat minValue = INFINITY;
     
-    for (int i = 0; i < numberOfPoints; i++) {
+    for (NSUInteger i = 0; i < numberOfPoints; i++) {
         dotValue = [self.delegate valueForIndex:i];
         
         if (dotValue < minValue) {
@@ -251,7 +251,7 @@ int currentlyCloser;
             [subview removeFromSuperview];
     }
     
-    int numberOfGaps = [self.delegate numberOfGapsBetweenLabels] + 1;
+    NSUInteger numberOfGaps = [self.delegate numberOfGapsBetweenLabels] + 1;
     
     if (numberOfGaps >= (numberOfPoints - 1)) {
         UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, self.frame.size.height - (labelXaxisOffset + 10), self.frame.size.width/2, 20)];
@@ -270,7 +270,7 @@ int currentlyCloser;
         lastLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:lastLabel];
     } else {
-        for (int i = 1; i <= (numberOfPoints/numberOfGaps); i++) {
+        for (NSUInteger i = 1; i <= (numberOfPoints/numberOfGaps); i++) {
             UILabel *labelXAxis = [[UILabel alloc] init];
             labelXAxis.text = [self.delegate labelOnXAxisForIndex:(i * numberOfGaps - 1)];
             [labelXAxis sizeToFit];
