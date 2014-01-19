@@ -106,7 +106,11 @@ int currentlyCloser;
         CGFloat dotValue = [self.delegate valueForIndex:i];
         
         positionOnXAxis = (self.viewForBaselineLayout.frame.size.width/(numberOfPoints - 1))*i;
-        positionOnYAxis = (self.viewForBaselineLayout.frame.size.height - 80) - ((dotValue - minValue) / ((maxValue - minValue) / (self.viewForBaselineLayout.frame.size.height - 80))) + 20;
+        if (minValue == maxValue) {
+            positionOnYAxis = self.viewForBaselineLayout.frame.size.height/2;
+        } else {
+            positionOnYAxis = (self.viewForBaselineLayout.frame.size.height - 80) - ((dotValue - minValue) / ((maxValue - minValue) / (self.viewForBaselineLayout.frame.size.height - 80))) + 20;
+        }
         
         BEMCircle *circleDot = [[BEMCircle alloc] initWithFrame:CGRectMake(0, 0, circleSize, circleSize)];
         circleDot.center = CGPointMake(positionOnXAxis, positionOnYAxis);
