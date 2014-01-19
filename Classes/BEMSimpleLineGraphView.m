@@ -8,6 +8,7 @@
 
 #define circleSize 10
 #define labelXaxisOffset 10
+#define padding 10
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 #import "BEMSimpleLineGraphView.h"
@@ -109,7 +110,7 @@ int currentlyCloser;
         if (minValue == maxValue) {
             positionOnYAxis = self.viewForBaselineLayout.frame.size.height/2;
         } else {
-            positionOnYAxis = (self.viewForBaselineLayout.frame.size.height - 80) - ((dotValue - minValue) / ((maxValue - minValue) / (self.viewForBaselineLayout.frame.size.height - 80))) + 20;
+            positionOnYAxis = (self.viewForBaselineLayout.frame.size.height - (padding*2)) - ((dotValue - minValue) / ((maxValue - minValue) / (self.viewForBaselineLayout.frame.size.height - (padding*2)))) + padding;
         }
         
         BEMCircle *circleDot = [[BEMCircle alloc] initWithFrame:CGRectMake(0, 0, circleSize, circleSize)];
